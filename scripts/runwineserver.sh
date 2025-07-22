@@ -4,11 +4,11 @@ ServerPassword="${SERVERPASSWORD}"
 
 # If /config is not empty, copy its contents to /server/AbioticFactor
 if [ "$(ls -A /config 2>/dev/null)" ]; then
-    echo "Copying config files from /config to /Server/AbioticFactor/Saved/SaveGames/Server..."
-    if [ ! -d "/Server/AbioticFactor/Saved/SaveGames/Server" ]; then
-        mkdir -p /Server/AbioticFactor/Saved/SaveGames/Server
+    echo "Copying config files from /config to /server/AbioticFactor/Saved/SaveGames/Server..."
+    if [ ! -d "/server/AbioticFactor/Saved/SaveGames/Server" ]; then
+        mkdir -p /server/AbioticFactor/Saved/SaveGames/Server
     fi
-    cp -r /config/* /Server/AbioticFactor/Saved/SaveGames/Server
+    cp -r /config/* /server/AbioticFactor/Saved/SaveGames/Server
 fi
 
 # Function to handle shutdown
