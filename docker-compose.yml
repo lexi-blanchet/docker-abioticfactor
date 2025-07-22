@@ -3,7 +3,9 @@ services:
     image: mber1991/abioticfactor-server
     restart: no
     environment:
-      - SERVERPASSWORD=test
+      - SERVERNAME=CHANGEME!
+      - WORLDSAVENAME=CHANGEME!
+      - SERVERPASSWORD=CHANGEME!
     ports:
       - "0.0.0.0:7777:7777/udp"
       - "0.0.0.0:27015:27015/udp"
