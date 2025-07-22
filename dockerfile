@@ -15,18 +15,13 @@ RUN steamcmd \
     validate \
     +quit
 
-FROM ubuntu:latest
+FROM scottyhardy/docker-wine:stable
 
-# Install dependencies
-RUN dpkg --add-architecture i386 \ 
-    &&apt update \
-    && apt install -y wine32 wine64 \
-    && apt install -y xvfb \
-    # Clean cache
-    && apt -y clean autoclean \
-    && apt -y autoremove \
-    && rm -rf /var/lib/apt/lists/*
+# Create volumes
+VOLUME /config
+VOLUME /server
 
+# Copy build into our new image
 COPY --from=build /server /server
 
 # Expose our default ports
@@ -45,7 +40,8 @@ ENV QUERYPORT=27015
 ENV WINEDEBUG=fixme-all
 
 # Copy server run file
+WORKDIR /server
 COPY ./scripts/runwineserver.sh /runwineserver.sh
 
 # Entrypoint which starts our server
-ENTRYPOINT ["bash", "/runwineserver.sh"]
+ENTRYPOINT ["/runwineserver.sh"]

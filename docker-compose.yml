@@ -1,19 +1,24 @@
 services:
   AbioticFactorServer:
     image: mber1991/abioticfactor-server
+    stop_grace_period: 5m
     restart: no
     environment:
-      - SERVERNAME=CHANGEME!
-      - WORLDSAVENAME=CHANGEME!
-      - SERVERPASSWORD=CHANGEME!
+      - SERVERNAME=wasl
+      - WORLDSAVENAME=wasl
+      - SERVERPASSWORD=wasl
     ports:
       - "0.0.0.0:7777:7777/udp"
       - "0.0.0.0:27015:27015/udp"
     networks:
       - bridge
     volumes:
-      - "./data:/server/AbioticFactor/Saved/SaveGames/Server"
+      - ./config:/config
+      - abioticfactor:/server/AbioticFactor/Saved:rw # DO NOT USE A LOCAL MOUNT IT CORRUPTS WORLD SAVES
 
 networks:
   bridge:
     driver: bridge
+
+volumes:
+  abioticfactor:
