@@ -3,10 +3,12 @@ services:
     image: mber1991/abioticfactor-server
     stop_grace_period: 5m
     restart: no
-    environment:
-      - SERVERNAME=wasl
-      - WORLDSAVENAME=wasl
-      - SERVERPASSWORD=wasl
+    #env_file: # Create a .env file and specify SERVERPASSWORD
+    #  - .env
+    #environment:
+    #  - SERVERNAME=CHANGEME!
+    #  - WORLDSAVENAME=CHANGEME!
+    #  - MAXPLAYERS=CHANGEME!
     ports:
       - "0.0.0.0:7777:7777/udp"
       - "0.0.0.0:27015:27015/udp"

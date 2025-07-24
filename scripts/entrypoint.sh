@@ -2,13 +2,24 @@
 # This command line is a nightmare so its just in a shell script for convenience
 ServerPassword="${SERVERPASSWORD}"
 
-# If /config is not empty, copy its contents to /server/AbioticFactor
-if [ "$(ls -A /config 2>/dev/null)" ]; then
-    echo "Copying config files from /config to /server/AbioticFactor/Saved/SaveGames/Server..."
+# If Admin.ini exists, we copy it.
+if [ -e "/config/Admin.ini" ]; then
+    echo "Copying Admin.ini from /config to /server/AbioticFactor/Saved/SaveGames/Server..."
     if [ ! -d "/server/AbioticFactor/Saved/SaveGames/Server" ]; then
         mkdir -p /server/AbioticFactor/Saved/SaveGames/Server
     fi
-    cp -r /config/* /server/AbioticFactor/Saved/SaveGames/Server
+    cp /config/Admin.ini /server/AbioticFactor/Saved/SaveGames/Server
+fi
+
+# If SandboxSettings.ini exists and a world save exists already, we copy it
+if [ -e "/config/SandboxSettings.ini" ]; then
+    echo "SandboxSettings.ini exists, attempting to copy."
+    if [ -d "/server/AbioticFactor/Saved/SaveGames/Server/Worlds/${WORLDSAVENAME}" ]; then
+        echo "Copying SandboxSettings.ini to /server/AbioticFactor/Saved/SaveGames/Server/Worlds/${WORLDSAVENAME}"
+        cp /config/SandboxSettings.ini /server/AbioticFactor/Saved/SaveGames/Server/Worlds/${WORLDSAVENAME}
+    else 
+        echo "WorldSave does not exist yet, wait for at least one save to generate then restart this image to copy SandboxSettings.ini"
+    fi
 fi
 
 # Function to handle shutdown
@@ -22,8 +33,6 @@ shutdown() {
 
 # Trap the SIGTERM signal and call the shutdown function
 trap 'shutdown' SIGTERM
-
-echo DEBUG: $ServerPassword
 
 # The order is VERY particular and setup is sourced from https://github.com/DFJacob/AbioticFactorDedicatedServer/issues/3#issuecomment-2094369127
 xvfb-run wine /server/AbioticFactor/Binaries/Win64/AbioticFactorServer-Win64-Shipping.exe -log -newconsole -useperfthreads -NoAsyncLoadingThread \

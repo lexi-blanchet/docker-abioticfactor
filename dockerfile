@@ -41,7 +41,8 @@ ENV WINEDEBUG=fixme-all
 
 # Copy server run file
 WORKDIR /server
-COPY ./scripts/runwineserver.sh /runwineserver.sh
+COPY ./scripts/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 # Entrypoint which starts our server
-ENTRYPOINT ["/runwineserver.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
