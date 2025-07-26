@@ -25,14 +25,14 @@ fi
 # Function to handle shutdown
 shutdown() {
     echo "Caught SIGTERM, shutting down application..."
-    kill -s SIGTERM "$APPLICATION_PID"
+    pkill --signal TERM --parent $APPLICATION_PID
     wait "$APPLICATION_PID"
     echo "Application gracefully stopped."
     exit 0
 }
 
 # Trap the SIGTERM signal and call the shutdown function
-trap 'shutdown' SIGTERM
+trap 'shutdown' TERM
 
 # The order is VERY particular and setup is sourced from https://github.com/DFJacob/AbioticFactorDedicatedServer/issues/3#issuecomment-2094369127
 xvfb-run wine /server/AbioticFactor/Binaries/Win64/AbioticFactorServer-Win64-Shipping.exe -log -newconsole -useperfthreads -NoAsyncLoadingThread \
