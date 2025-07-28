@@ -1,8 +1,9 @@
 services:
   AbioticFactorServer:
     image: mber1991/abioticfactor-server
-    stop_grace_period: 5m
+    stop_grace_period: 1m
     restart: no
+    init: true
     #env_file: # Create a .env file and specify SERVERPASSWORD
     #  - .env
     #environment:
