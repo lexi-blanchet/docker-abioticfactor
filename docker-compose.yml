@@ -18,6 +18,29 @@ services:
     volumes:
       - ./config:/config
       - abioticfactor:/server/AbioticFactor/Saved:rw # DO NOT USE A LOCAL MOUNT IT CORRUPTS WORLD SAVES
+    labels:
+      - docker-volume-backup.stop-during-backup=true
+
+# This is optional but highly encouraged
+  backup:
+    image: offen/docker-volume-backup:latest
+    restart: always
+    environment:
+      BACKUP_FILENAME: abioticfactor-%Y-%m-%dT%H-%M-%S.tar.gz
+      BACKUP_CRON_EXPRESSION: "0 2 * * *" # Daily at 2am
+      BACKUP_SOURCES: "/backup"
+    volumes:
+      - abioticfactor:/backup:ro
+      # Mounting the Docker socket allows the script to stop and restart
+      # the container during backup. You can omit this if you don't want
+      # to stop the container. In case you need to proxy the socket, you can
+      # also provide a location by setting `DOCKER_HOST` in the container
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      # If you mount a local directory or volume to `/archive` a local
+      # copy of the backup will be stored there. You can override the
+      # location inside of the container by setting `BACKUP_ARCHIVE`.
+      # You can omit this if you do not want to keep local backups.
+      - ./backup:/archive
 
 networks:
   bridge:
