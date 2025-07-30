@@ -27,7 +27,7 @@ services:
     restart: always
     environment:
       BACKUP_FILENAME: abioticfactor-%Y-%m-%dT%H-%M-%S.tar.gz
-      BACKUP_CRON_EXPRESSION: "0 2 * * *" # Daily at 2am
+      BACKUP_CRON_EXPRESSION: "0 8 * * *" # Daily at 8am UTC
       BACKUP_SOURCES: "/backup"
     volumes:
       - abioticfactor:/backup:ro
