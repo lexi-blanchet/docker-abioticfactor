@@ -22,6 +22,12 @@ if [ -e "/config/SandboxSettings.ini" ]; then
     fi
 fi
 
+# Copy pak mods because they're easy
+if [ -d "/mods" ]; then
+    echo "/mods folder is mounted, copying."
+    cp /mods/* /server/AbioticFactor/Content/Paks
+fi
+
 # The order is VERY particular and setup is sourced from https://github.com/DFJacob/AbioticFactorDedicatedServer/issues/3#issuecomment-2094369127
 xvfb-run -a wine /server/AbioticFactor/Binaries/Win64/AbioticFactorServer-Win64-Shipping.exe -log -newconsole -useperfthreads -NoAsyncLoadingThread \
     -MaxServerPlayers=${MAXPLAYERS} \

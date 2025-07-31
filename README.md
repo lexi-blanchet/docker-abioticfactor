@@ -42,4 +42,4 @@ You should backup this volume regularly as AF has a known bug where your save be
 
 ## Abiotic Factor Server Configuration Files
 
-On image start if /config has any files it will be copied to `/Server/AbioticFactor/Saved/SaveGames/Server`, this is primarily to copy the `Admin.ini` so you can whitelist your steam ID
+In /config rename the files to not have `.example` at the end and they will be uploaded into your server on container start. If no save file exists yet you will need to wait until you hit an autosave then restart the container.
