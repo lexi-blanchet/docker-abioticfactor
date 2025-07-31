@@ -13,7 +13,7 @@ This is default behavior if using the example docker-compose
 I don't push this image anywhere because it's quite large after building ~6.4 GB so you'll need to build this yourself.
 
 ```cmd
-docker build -t mber1991/abioticfactor-server .
+docker build -t dricephd/abioticfactor-server .
 docker compose up -d
 ```
 
