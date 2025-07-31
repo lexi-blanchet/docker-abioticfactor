@@ -1,6 +1,6 @@
 services:
   AbioticFactorServer:
-    image: mber1991/abioticfactor-server
+    image: dricephd/abioticfactor-server
     stop_grace_period: 1m
     restart: no
     init: true
@@ -22,6 +22,7 @@ services:
       - docker-volume-backup.stop-during-backup=true
 
 # This is optional but highly encouraged
+# IOS THIS BETTER? https://github.com/loomchild/volume-backup
   backup:
     image: offen/docker-volume-backup:latest
     restart: always

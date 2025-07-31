@@ -22,7 +22,7 @@ docker compose up -d
 There is no built-in mechanism for detecting an AF update right now. You will need to run the below yourself:
 
 ```cmd
-docker build -t mber1991/abioticfactor-server . --no-cache
+docker build -t dricephd/abioticfactor-server . --no-cache
 docker compose down
 docker compose up -d
 ```
