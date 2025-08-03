@@ -13,19 +13,13 @@ This is default behavior if using the example docker-compose
 I don't push this image anywhere because it's quite large after building ~6.4 GB so you'll need to build this yourself.
 
 ```cmd
-docker build -t dricephd/abioticfactor-server .
-docker compose up -d
+docker compose build
+docker commpose up -d
 ```
 
 ## Updating
 
-There is no built-in mechanism for detecting an AF update right now. You will need to run the below yourself:
-
-```cmd
-docker build -t dricephd/abioticfactor-server . --no-cache
-docker compose down
-docker compose up -d
-```
+There is no built-in mechanism for detecting an AF update right now. You will need to manually re-run the above build command
 
 ## Save Files
 
@@ -40,6 +34,14 @@ If using the default `docker-compose.yml` file this will be automatically mounte
 
 You should backup this volume regularly as AF has a known bug where your save becomes corrupted. The backup system built into the program is very rudimentary.
 
+# Configuration
+
 ## Abiotic Factor Server Configuration Files
 
 In /config rename the files to not have `.example` at the end and they will be uploaded into your server on container start. If no save file exists yet you will need to wait until you hit an autosave then restart the container.
+
+## Mod Installation
+
+This docker compose file supports installing basic mods that involve just copying .pak files into the correct folder. (Ex: https://www.nexusmods.com/abioticfactor/mods/65?tab=posts)
+
+To enable this functionality unzip all the files in the zip file you downloaded into a folder named "mods" and it will be copied into the correct location when the server is brought up.
