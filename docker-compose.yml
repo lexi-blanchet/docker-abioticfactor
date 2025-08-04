@@ -17,12 +17,15 @@ services:
       - bridge
     volumes:
       - ./config:/config
+      - ./mods:/mods
       - abioticfactor:/server/AbioticFactor/Saved:rw # DO NOT USE A LOCAL MOUNT IT CORRUPTS WORLD SAVES
     labels:
       - docker-volume-backup.stop-during-backup=true
+    build:
+      dockerfile: dockerfile
+      no_cache: true
 
 # This is optional but highly encouraged
-# IOS THIS BETTER? https://github.com/loomchild/volume-backup
   backup:
     image: offen/docker-volume-backup:latest
     restart: always
