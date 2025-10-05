@@ -32,7 +32,20 @@ There is no built-in mechanism for detecting an AF update right now. You will ne
 World Save Files are preserved in a docker image volume named `/server`. 
 If using the default `docker-compose.yml` file this will be automatically mounted to a named docker volume named `abioticfactor` that should persist between image states.
 
+### Backups
+
+Optional but highly encouraged, the compose file comes with [docker-volume-backup](https://offen.github.io/docker-volume-backup/)
 You should backup this volume regularly as AF has a known bug where your save becomes corrupted. The backup system built into the program is very rudimentary.
+
+> [!Caution]
+> You should never take backups while the server is running for fear of corruption of the save file. Default settings in this compose file should stop it for you. Be EXTRA sure you do this during a manual backup
+
+To run a one-off backup you would use the below
+
+```
+# The env file is optional but if you've configured remote backups your secrets would be stored there.
+docker compose run --rm --env .env.backup --entrypoint backup backup
+```
 
 # Configuration
 

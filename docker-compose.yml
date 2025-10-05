@@ -29,6 +29,8 @@ services:
   backup:
     image: offen/docker-volume-backup:latest
     restart: always
+    #env_file:
+    #  - .env.backup
     environment:
       BACKUP_FILENAME: abioticfactor-%Y-%m-%dT%H-%M-%S.tar.gz
       BACKUP_CRON_EXPRESSION: "0 8 * * *" # Daily at 8am UTC
@@ -52,3 +54,4 @@ networks:
 
 volumes:
   abioticfactor:
+    #external: true # This is only needed if you brought your own volume.
